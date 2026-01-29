@@ -6,6 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 diff-intent analyzes your git diffs using LLMs to explain:
+
 - **Purpose**: What the change is trying to accomplish
 - **Change Type**: Whether it's a refactor or behavior change
 - **Risks**: What could break
@@ -51,11 +52,11 @@ npm install -g diff-intent
 
 diff-intent auto-detects available providers from environment variables:
 
-| Provider | Environment Variable | Default Model | Pricing |
-|----------|---------------------|---------------|---------|
-| Groq | `GROQ_API_KEY` | llama-3.3-70b | FREE tier |
-| OpenAI | `OPENAI_API_KEY` | gpt-4o-mini | ~$0.15/1M tokens |
-| Anthropic | `ANTHROPIC_API_KEY` | claude-3-5-haiku | ~$0.80/1M tokens |
+| Provider  | Environment Variable | Default Model    | Pricing          |
+| --------- | -------------------- | ---------------- | ---------------- |
+| Groq      | `GROQ_API_KEY`       | llama-3.3-70b    | FREE tier        |
+| OpenAI    | `OPENAI_API_KEY`     | gpt-4o-mini      | ~$0.15/1M tokens |
+| Anthropic | `ANTHROPIC_API_KEY`  | claude-3-5-haiku | ~$0.80/1M tokens |
 
 Get a free Groq API key at [console.groq.com](https://console.groq.com)
 
@@ -209,16 +210,16 @@ diff-intent init
 
 ### Configuration Options
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `provider` | string | auto-detect | LLM provider |
-| `model` | string | provider default | Specific model |
-| `outputFormat` | string | `terminal` | Default output format |
-| `cache` | boolean | `true` | Enable response caching |
-| `cacheTTL` | number | `24` | Cache TTL in hours |
-| `showCost` | boolean | `false` | Show token/cost info |
-| `colors` | boolean | `true` | Enable colored output |
-| `customPrompt` | string | - | Custom system prompt |
+| Option         | Type    | Default          | Description             |
+| -------------- | ------- | ---------------- | ----------------------- |
+| `provider`     | string  | auto-detect      | LLM provider            |
+| `model`        | string  | provider default | Specific model          |
+| `outputFormat` | string  | `terminal`       | Default output format   |
+| `cache`        | boolean | `true`           | Enable response caching |
+| `cacheTTL`     | number  | `24`             | Cache TTL in hours      |
+| `showCost`     | boolean | `false`          | Show token/cost info    |
+| `colors`       | boolean | `true`           | Enable colored output   |
+| `customPrompt` | string  | -                | Custom system prompt    |
 
 ### Supported Config Files
 
@@ -240,6 +241,7 @@ Automatically analyze PRs and post a comment with the diff intent summary.
    - Add `GROQ_API_KEY` (or `OPENAI_API_KEY` / `ANTHROPIC_API_KEY`)
 
 2. **Generate the workflow** (recommended)
+
    ```bash
    diff-intent init
    # Select "Add GitHub Actions workflow for PR analysis"
@@ -295,6 +297,7 @@ diff-intent -i
 ```
 
 After the initial analysis, you can explore:
+
 - Security implications
 - Performance impact
 - Breaking changes
@@ -331,6 +334,7 @@ diff-intent --provider openai --model gpt-4o
 ### "No API key found"
 
 Set at least one API key:
+
 ```bash
 export GROQ_API_KEY=your-key    # Recommended (free)
 export OPENAI_API_KEY=your-key
@@ -340,12 +344,14 @@ export ANTHROPIC_API_KEY=your-key
 ### "No staged changes"
 
 Either stage your changes:
+
 ```bash
 git add .
 diff-intent
 ```
 
 Or specify a target:
+
 ```bash
 diff-intent HEAD~1
 ```
@@ -353,11 +359,13 @@ diff-intent HEAD~1
 ### Cache issues
 
 Clear the cache:
+
 ```bash
 diff-intent config --clear
 ```
 
 Or bypass for a single request:
+
 ```bash
 diff-intent --no-cache
 ```
@@ -365,6 +373,8 @@ diff-intent --no-cache
 ## Contributing
 
 Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+For questions or feedback, open an issue or email **syedsibtain191@gmail.com**.
 
 ## License
 

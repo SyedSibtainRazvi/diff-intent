@@ -5,7 +5,9 @@ import { Command } from 'commander';
 import { runAnalyze, runConfig, runInit } from './commands';
 import type { OutputFormat } from './config';
 
-const VERSION = '1.0.0';
+// Keep version in sync with package.json
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { version: VERSION } = require('../package.json');
 
 const program = new Command();
 

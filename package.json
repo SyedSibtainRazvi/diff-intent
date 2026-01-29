@@ -29,7 +29,7 @@
     "anthropic",
     "claude"
   ],
-  "author": "Syed Sibtain Razvi",
+  "author": "Syed Sibtain Razvi <syedsibtain191@gmail.com>",
   "license": "MIT",
   "type": "commonjs",
   "repository": {
@@ -49,6 +49,7 @@
     "README.md",
     "LICENSE"
   ],
+  "types": "dist/index.d.ts",
   "dependencies": {
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",

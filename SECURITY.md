@@ -11,7 +11,7 @@
 If you discover a security vulnerability in diff-intent, please report it responsibly:
 
 1. **Do not** open a public GitHub issue for security vulnerabilities
-2. Email the maintainers directly or use GitHub's private vulnerability reporting
+2. Email the maintainer at **syedsibtain191@gmail.com** or use GitHub's private vulnerability reporting
 3. Include as much detail as possible:
    - Description of the vulnerability
    - Steps to reproduce
