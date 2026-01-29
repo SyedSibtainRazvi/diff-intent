@@ -14,11 +14,11 @@ diff-intent analyzes your git diffs using LLMs to explain:
 
 ## Why I built this
 
-Modern teams (and AI tools) ship a huge amount of code. Diffs tell you _what_ changed, but
-they rarely capture _why_ the change exists, what tradeoffs were made, or how it fits into the
-broader system. I wanted something that would sit next to your existing git workflow and give
-you that missing layer of intent and context—especially when a lot of the code was written or
-refactored with the help of AI.
+We ship more code than ever, and AI has accelerated that even further. But while diffs tell us exactly what changed, they often fail to explain why the change was made, what tradeoffs were considered, or how it fits into the broader system.
+
+I noticed this gap most clearly when reviewing AI-assisted changes. The code looked fine, but the intent—the reasoning—was missing.
+
+This tool came out of that frustration. It’s meant to live alongside your existing git workflow and surface the intent behind a change before you dive into the details. Nothing magical, nothing automatic—just a clearer starting point for understanding code.
 
 diff-intent is my attempt to make code review feel more like reading a design note than
 staring at raw hunks of text.
@@ -40,6 +40,10 @@ Side-by-side diff and intent summary:
 CLI analysis of a diff:
 
 ![diff-intent side-by-side view](./src/assets/docs-side-by-side.png)
+
+Workflow example:
+
+![diff-intent workflow](./src/assets/docs-workflow.png)
 
 ## Quick Start
 
