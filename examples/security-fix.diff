@@ -1,0 +1,28 @@
+diff --git a/src/db/queries.ts b/src/db/queries.ts
+index 1234567..abcdefg 100644
+--- a/src/db/queries.ts
++++ b/src/db/queries.ts
+@@ -5,12 +5,18 @@ const pool = new Pool({
+ });
+
+ export async function getUserByEmail(email: string): Promise<User | null> {
+-  const query = `SELECT * FROM users WHERE email = '${email}'`;
+-  const result = await pool.query(query);
++  const query = 'SELECT * FROM users WHERE email = $1';
++  const result = await pool.query(query, [email]);
+   return result.rows[0] || null;
+ }
+
+ export async function searchUsers(searchTerm: string): Promise<User[]> {
+-  const query = `SELECT * FROM users WHERE name LIKE '%${searchTerm}%'`;
+-  const result = await pool.query(query);
++  const query = 'SELECT * FROM users WHERE name ILIKE $1';
++  const result = await pool.query(query, [`%${searchTerm}%`]);
+   return result.rows;
+ }
++
++export async function getUserById(id: number): Promise<User | null> {
++  const query = 'SELECT * FROM users WHERE id = $1';
++  const result = await pool.query(query, [id]);
++  return result.rows[0] || null;
++}

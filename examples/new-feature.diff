@@ -1,0 +1,74 @@
+diff --git a/src/auth/rateLimit.ts b/src/auth/rateLimit.ts
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/src/auth/rateLimit.ts
+@@ -0,0 +1,45 @@
++import { Request, Response, NextFunction } from 'express';
++
++interface RateLimitStore {
++  [key: string]: {
++    count: number;
++    resetTime: number;
++  };
++}
++
++const store: RateLimitStore = {};
++
++export interface RateLimitOptions {
++  windowMs: number;
++  maxRequests: number;
++}
++
++export function rateLimit(options: RateLimitOptions) {
++  const { windowMs, maxRequests } = options;
++
++  return (req: Request, res: Response, next: NextFunction) => {
++    const ip = req.ip || 'unknown';
++    const now = Date.now();
++
++    if (!store[ip] || store[ip].resetTime < now) {
++      store[ip] = {
++        count: 1,
++        resetTime: now + windowMs,
++      };
++      return next();
++    }
++
++    store[ip].count++;
++
++    if (store[ip].count > maxRequests) {
++      return res.status(429).json({
++        error: 'Too many requests',
++        retryAfter: Math.ceil((store[ip].resetTime - now) / 1000),
++      });
++    }
++
++    next();
++  };
++}
+diff --git a/src/routes/api.ts b/src/routes/api.ts
+index abcdefg..hijklmn 100644
+--- a/src/routes/api.ts
++++ b/src/routes/api.ts
+@@ -1,10 +1,17 @@
+ import { Router } from 'express';
+ import { userController } from '../controllers/user';
++import { rateLimit } from '../auth/rateLimit';
+
+ const router = Router();
+
++const limiter = rateLimit({
++  windowMs: 15 * 60 * 1000, // 15 minutes
++  maxRequests: 100,
++});
++
++router.use(limiter);
++
+ router.get('/users', userController.getAll);
+ router.get('/users/:id', userController.getById);
+ router.post('/users', userController.create);
+-router.put('/users/:id', userController.update);
+-router.delete('/users/:id', userController.delete);
++router.put('/users/:id', userController.update);
++router.delete('/users/:id', userController.delete);

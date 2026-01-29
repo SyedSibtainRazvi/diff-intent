@@ -1,0 +1,22 @@
+diff --git a/src/utils.ts b/src/utils.ts
+index 1234567..abcdefg 100644
+--- a/src/utils.ts
++++ b/src/utils.ts
+@@ -10,15 +10,12 @@ export function formatDate(date: Date): string {
+ }
+
+ export function calculateTotal(items: Item[]): number {
+-  let total = 0;
+-  for (let i = 0; i < items.length; i++) {
+-    total += items[i].price * items[i].quantity;
+-  }
+-  return total;
++  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+ }
+
+ export function validateEmail(email: string): boolean {
+-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+-  return regex.test(email);
++  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
++  return EMAIL_REGEX.test(email);
+ }
