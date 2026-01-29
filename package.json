@@ -1,6 +1,6 @@
 {
   "name": "diff-intent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "AI-powered git diff analysis - understand the intent behind code changes",
   "main": "dist/index.js",
   "bin": {
