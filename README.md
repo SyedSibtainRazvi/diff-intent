@@ -33,13 +33,13 @@ staring at raw hunks of text.
 
 ## Screenshots
 
-CLI analysis of a diff:
-
-![diff-intent CLI output](./assets/docs-cli.png)
-
 Side-by-side diff and intent summary:
 
-![diff-intent side-by-side view](./assets/docs-side-by-side.png)
+![diff-intent CLI output](./src/assets/docs-cli.png)
+
+CLI analysis of a diff:
+
+![diff-intent side-by-side view](./src/assets/docs-side-by-side.png)
 
 ## Quick Start
 
