@@ -47,7 +47,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
