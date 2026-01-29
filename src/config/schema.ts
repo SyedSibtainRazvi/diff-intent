@@ -12,7 +12,19 @@ export interface Config {
   showCost?: boolean;
   customPrompt?: string;
   colors?: boolean;
+  ignore?: string[]; // file patterns to ignore (e.g., lock files)
 }
+
+export const DEFAULT_IGNORE_PATTERNS = [
+  'pnpm-lock.yaml',
+  'package-lock.json',
+  'yarn.lock',
+  'bun.lockb',
+  'composer.lock',
+  'Gemfile.lock',
+  'poetry.lock',
+  'Cargo.lock',
+];
 
 export const DEFAULT_CONFIG: Required<Config> = {
   provider: 'groq' as ProviderName,
@@ -24,6 +36,7 @@ export const DEFAULT_CONFIG: Required<Config> = {
   showCost: false,
   customPrompt: '',
   colors: true,
+  ignore: DEFAULT_IGNORE_PATTERNS,
 };
 
 export function validateConfig(config: unknown): Config {
@@ -71,6 +84,10 @@ export function validateConfig(config: unknown): Config {
 
   if (typeof c.colors === 'boolean') {
     validated.colors = c.colors;
+  }
+
+  if (Array.isArray(c.ignore) && c.ignore.every((p) => typeof p === 'string')) {
+    validated.ignore = c.ignore;
   }
 
   return validated;

@@ -184,3 +184,25 @@ export function getDiffStats(files: ParsedFile[]): {
     deletions,
   };
 }
+
+export function filterIgnoredFiles(diff: string, ignorePatterns: string[]): string {
+  if (!ignorePatterns || ignorePatterns.length === 0) {
+    return diff;
+  }
+
+  const fileDiffs = splitDiffByFile(diff);
+  const filtered = fileDiffs.filter((fileDiff) => {
+    const fileName = getFileNameFromDiff(fileDiff);
+    return !ignorePatterns.some((pattern) => {
+      // Support both exact matches and glob-like patterns
+      if (pattern.includes('*')) {
+        const regex = new RegExp(`^${pattern.replace(/\*/g, '.*').replace(/\?/g, '.')}$`);
+        return regex.test(fileName);
+      }
+      // Exact filename match (check if it ends with the pattern for paths)
+      return fileName === pattern || fileName.endsWith(`/${pattern}`);
+    });
+  });
+
+  return filtered.join('\n');
+}

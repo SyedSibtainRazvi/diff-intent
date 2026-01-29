@@ -1,7 +1,7 @@
 import * as fs from 'node:fs';
-import { type Config, type OutputFormat, getConfig } from '../config';
+import { type Config, DEFAULT_IGNORE_PATTERNS, type OutputFormat, getConfig } from '../config';
 import { getCached, setCache } from '../core/cache';
-import { getFileNameFromDiff, splitDiffByFile } from '../core/diff-parser';
+import { filterIgnoredFiles, getFileNameFromDiff, splitDiffByFile } from '../core/diff-parser';
 import { renderSideBySide } from '../core/diff-renderer';
 import { getGitDiff, getStagedDiff, hasChanges, isGitRepo, readDiffFromFile } from '../core/git';
 import { getFormatter } from '../output';
@@ -154,10 +154,17 @@ export async function runAnalyze(target?: string, options: AnalyzeOptions = {}):
     });
 
     // Read diff input
-    const diff = await readDiffInput(target, options.file);
+    const rawDiff = await readDiffInput(target, options.file);
+
+    if (!rawDiff.trim()) {
+      throw new Error('No diff content to analyze.');
+    }
+
+    const ignorePatterns = config.ignore ?? DEFAULT_IGNORE_PATTERNS;
+    const diff = filterIgnoredFiles(rawDiff, ignorePatterns);
 
     if (!diff.trim()) {
-      throw new Error('No diff content to analyze.');
+      throw new Error('No diff content to analyze after filtering ignored files.');
     }
 
     // Determine output format
@@ -206,7 +213,9 @@ export async function runAnalyze(target?: string, options: AnalyzeOptions = {}):
         showCost: options.showCost,
         provider: options.provider || config.provider,
       });
-      const sideBySide = await renderSideBySide(diff, intentOutput, { colors: useColors });
+      const sideBySide = await renderSideBySide(diff, intentOutput, {
+        colors: useColors,
+      });
       console.log(sideBySide);
       return;
     }
