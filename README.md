@@ -12,6 +12,17 @@ diff-intent analyzes your git diffs using LLMs to explain:
 - **Risks**: What could break
 - **Tests**: What tests should exist
 
+## Why I built this
+
+Modern teams (and AI tools) ship a huge amount of code. Diffs tell you _what_ changed, but
+they rarely capture _why_ the change exists, what tradeoffs were made, or how it fits into the
+broader system. I wanted something that would sit next to your existing git workflow and give
+you that missing layer of intent and context—especially when a lot of the code was written or
+refactored with the help of AI.
+
+diff-intent is my attempt to make code review feel more like reading a design note than
+staring at raw hunks of text.
+
 ## Features
 
 - **Multi-provider support**: Groq (FREE), OpenAI, Anthropic
@@ -19,6 +30,16 @@ diff-intent analyzes your git diffs using LLMs to explain:
 - **Beautiful output**: Colored terminal, Markdown, GitHub, or JSON
 - **Smart caching**: 24-hour response cache to save API calls
 - **Interactive mode**: Ask follow-up questions about security, performance, etc.
+
+## Screenshots
+
+CLI analysis of a diff:
+
+![diff-intent CLI output](./assets/docs-cli.png)
+
+Side-by-side diff and intent summary:
+
+![diff-intent side-by-side view](./assets/docs-side-by-side.png)
 
 ## Quick Start
 
@@ -336,7 +357,7 @@ diff-intent --provider openai --model gpt-4o
 Set at least one API key:
 
 ```bash
-export GROQ_API_KEY=your-key    # Recommended (free)
+export GROQ_API_KEY=your-key
 export OPENAI_API_KEY=your-key
 export ANTHROPIC_API_KEY=your-key
 ```
